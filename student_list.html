@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student List - Hostel Management</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: var(--light);
+      margin: 5% auto;
+      padding: 30px;
+      width: 450px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      font-family: var(--poppins);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: var(--blue);
+    }
+
+    .modal-content .close {
+      position: absolute;
+      top: 15px; right: 20px;
+      font-size: 26px;
+      color: var(--dark);
+      cursor: pointer;
+    }
+
+    .modal-content .form-group {
+      margin-bottom: 18px;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .modal-content input,
+    .modal-content select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      background-color: #fff;
+      color: #333;
+    }
+
+    .modal-content .btn-save {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background-color: var(--blue);
+      color: #fff;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .modal-content .btn-save:hover {
+      background-color: #246ac7;
+    }
+
+
+    .close {
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .btn-edit {
+      margin-left: 10px;
+      background-color: var(--yellow);
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .btn-save {
+      margin-top: 10px;
+      background-color: var(--blue);
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <section id="sidebar">
+    <div class="brand">
+      <span class="text">Hostel Management</span>
+    </div>
+    <ul class="side-menu top">
+      <li><a href="home.html"><i class="bi bi-house-door-fill"></i><span class="text">Home</span></a></li>
+      <li><a href="dashboard.html"><i class="bi bi-grid-1x2-fill"></i><span class="text">Dashboard</span></a></li>
+      <li><a href="hostel_list.html"><i class="bi bi-building"></i><span class="text">Hostel</span></a></li>
+      <li class="active"><a href="student_list.html"><i class="bi bi-person-lines-fill"></i><span class="text">Student</span></a></li>
+      <li><a href="room_status.html"><i class="bi bi-door-open"></i><span class="text">Room Status</span></a></li>
+      <li><a href="s_registration.html"><i class="bi bi-person-plus"></i><span class="text">Register Student</span></a></li>
+    </ul>
+    <ul class="side-menu">
+      <li><a href="setting.html"><i class="bi bi-gear-fill"></i><span class="text">Settings</span></a></li>
+      <li><a href="index.html" class="logout"><i class="bi bi-box-arrow-right"></i><span class="text">Logout</span></a></li>
+    </ul>
+  </section>
+
+  <section id="content">
+    <nav>
+      <i class='bx bx-menu'></i>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+      </form>
+      <input type="checkbox" id="switch-mode" hidden>
+      <label for="switch-mode" class="switch-mode"></label>
+      <a href="#" class="notification">
+        <i class='bx bxs-bell'></i>
+        <span class="num">3</span>
+      </a>
+      <a href="admin.html" class="profile">
+        <img src="img/profile.jpg">
+      </a>
+    </nav>
+
+    <main>
+      <div class="head-title">
+        <div class="left">
+          <h1>Student List</h1>
+          <ul class="breadcrumb">
+            <li><a href="dashboard.html">Home</a></li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li><a class="active" href="student_list.html">Student</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="table-data">
+        <div class="order">
+          <div class="head">
+            <h3>All Students</h3>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Program</th>
+                <th>Block</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nur Alisya Yasmeen</td>
+                <td>2021432568</td>
+                <td>CDIM262</td>
+                <td>Block A</td>
+                <td>
+                  <a href="profile_nur.html" class="btn-view">View</a>
+                  <button class="btn-edit" onclick="openEditModal('Nur Alisya Yasmeen', '2021432568', 'CDIM262', 'Block A')">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Lim En Xi</td>
+                <td>2021876521</td>
+                <td>CDIM262</td>
+                <td>Block B</td>
+                <td><a href="profile_lim.html" class="btn-view">View</a>
+                <button class="btn-edit" onclick="openEditModal('Lim En Xi', '2021876521', 'CDIM262', 'Block B')">Edit</button>
+              </tr>
+              <tr>
+                <td>Ng Jing Jin</td>
+                <td>2021123456</td>
+                <td>CDIM262</td>
+                <td>Block C</td>
+                <td><a href="profile_ng.html" class="btn-view">View</a>
+                <button class="btn-edit" onclick="openEditModal('Ng Jing Jin', '2021123456', 'CDIM262', 'Block C')">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Tan Ling Yi</td>
+                <td>2021658634</td>
+                <td>CDIM232</td>
+                <td>Block C</td>
+                <td><a href="profile_tan.html" class="btn-view">View</a>
+                <button class="btn-edit" onclick="openEditModal('Tan Ling Yi', '2021658634', 'CDIM232', 'Block C')">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Hong Mu Yan</td>
+                <td>2021073307</td>
+                <td>CDIM264</td>
+                <td>Block C</td>
+                <td><a href="profile_hong.html" class="btn-view">View</a>
+                <button class="btn-edit" onclick="openEditModal('Hong Mu Yan', '2021073307', 'CDIM264', 'Block C')">Edit</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </main>
+
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <h2>Edit Student Details</h2>
+      <form id="editForm">
+        <div class="form-group">
+          <label for="editName">Full Name</label>
+          <input type="text" id="editName" required>
+        </div>
+        <div class="form-group">
+          <label for="editID">Student ID</label>
+          <input type="text" id="editID" required>
+        </div>
+        <div class="form-group">
+          <label for="editProgram">Program</label>
+          <input type="text" id="editProgram" required>
+        </div>
+        <div class="form-group">
+          <label for="editBlock">Block</label>
+          <input type="text" id="editBlock" required>
+        </div>
+        <div class="form-group">
+          <label for="editStatus">Hostel Status</label>
+          <select id="editStatus">
+            <option value="stay">Stay in Hostel</option>
+            <option value="remove">Remove from Hostel</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-save">Save Changes</button>
+      </form>
+      </div>
+    </div>
+
+  <footer class="footer">
+    © 2025 Universiti Teknologi MARA (UiTM) – Hostel Management System
+  </footer>
+</section>
+
+  <script src="js/dashboard.js"></script>
+    <script>
+    function openEditModal(name, id, program, block) {
+      document.getElementById('editName').value = name;
+      document.getElementById('editID').value = id;
+      document.getElementById('editProgram').value = program;
+      document.getElementById('editBlock').value = block;
+      document.getElementById('editStatus').value = "stay";
+      document.getElementById('editModal').style.display = "block";
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = "none";
+    }
+
+    document.getElementById('editForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert("Student details updated successfully! (Save logic not implemented in this demo)");
+      closeEditModal();
+    });
+    </script>
+</body>
